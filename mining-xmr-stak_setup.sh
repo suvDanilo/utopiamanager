@@ -5,6 +5,7 @@ tput setaf 3 ; tput bold ; echo "/etc/security/limits.conf e instalar alguns pac
 tput setaf 3 ; tput bold ; read -n 1 -s -p "Aperte qualquer tecla para iniciar..." ; echo "" ; echo "" ; tput sgr0
 
 #XMR-Stak-CPU compiling
+cd ~
 sudo apt update && sudo apt install build-essential cmake libssl-dev nano git htop screen -y
 sudo sed -i 's/#startup_message.*/startup_message off/' /etc/screenrc
 sudo sed -i 's/.*\${distro_id}:\${distro_codename}-updates.*/\t"\${distro_id}:\${distro_codename}-updates";/' /etc/apt/apt.conf.d/50unattended-upgrades
@@ -16,7 +17,8 @@ if [ $? != 0 ]; then
 	echo "\nErro exit code: $?" >&2
 	exit 1
 else
-	cp xmr-stak-cpu/bin/xmr-stak-cpu ~/xmr-stak
+	cd ~
+	cp xmr-stak-cpu/bin/xmr-stak-cpu xmr-stak
 	echo -e "\nXMR-Stak-CPU Compilado!\n"
 fi
 rm -rf xmr-stak-cpu/
