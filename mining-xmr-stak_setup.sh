@@ -5,17 +5,18 @@ tput setaf 3 ; tput bold ; echo "/etc/security/limits.conf e instalar alguns pac
 tput setaf 3 ; tput bold ; read -n 1 -s -p "Aperte qualquer tecla para iniciar..." ; echo "" ; echo "" ; tput sgr0
 
 #XMR-Stak-CPU compiling
-sudo apt update && sudo apt install build-essential cmake nano git htop screen -y
+sudo apt update && sudo apt install build-essential cmake libssl-dev nano git htop screen -y
 sudo sed -i 's/#startup_message.*/startup_message off/' /etc/screenrc
 sudo sed -i 's/.*\${distro_id}:\${distro_codename}-updates.*/\t"\${distro_id}:\${distro_codename}-updates";/' /etc/apt/apt.conf.d/50unattended-upgrades
 git clone https://github.com/fireice-uk/xmr-stak-cpu && cd xmr-stak-cpu && \
 sed -i 's/constexpr double fDevDonationLevel.*/constexpr double fDevDonationLevel = 0.0;/' donate-level.h
-cmake .  -DMICROHTTPD_REQUIRED=OFF  -DOpenSSL_REQUIRED=OFF && \
-make -j $(nproc) install && \
+cmake .  -DMICROHTTPD_REQUIRED=OFF  && \
+make -j $(nproc) && \
 if [ $? != 0 ]; then
 	echo "\nErro exit code: $?" >&2
 	exit 1
 else
+	cp xmr-stak-cpu/bin/xmr-stak-cpu ~/xmr-stak
 	echo -e "\nXMR-Stak-CPU Compilado!\n"
 fi
 rm -rf xmr-stak-cpu/
@@ -25,7 +26,7 @@ echo -e "Agora as configuracoes finais.\n"
 sleep 1
 
 #Aliases
-echo -e "alias update='sudo apt update'\nalias upgrade='sudo apt upgrade'\nalias clean='sudo apt clean && sudo apt autoclean && sudo apt autoremove'\nalias upgradable='apt list --upgradable'" | tee -a ~/.bash_aliases
+echo -e "alias update='sudo apt update'\nalias upgrade='sudo apt upgrade'\nalias clean='sudo apt clean && sudo apt autoclean && sudo apt autoremove'\nalias upgradable='apt list --upgradable'\nalias xmr='~/./xmr-stak config.txt'" | tee -a ~/.bash_aliases
 source .bashrc
 
 #Sysctl Conf
