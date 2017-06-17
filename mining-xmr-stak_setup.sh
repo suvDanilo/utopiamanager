@@ -12,14 +12,14 @@ sudo sed -i 's/.*\${distro_id}:\${distro_codename}-updates.*/\t"\${distro_id}:\$
 git clone -b dev https://github.com/fireice-uk/xmr-stak-cpu && cd xmr-stak-cpu && \
 sed -i 's/constexpr double fDevDonationLevel.*/constexpr double fDevDonationLevel = 0.0;/' donate-level.h
 cmake .  -DMICROHTTPD_ENABLE=OFF  && \
-make -j $(nproc) install && \
+make -j $(nproc) install
 if [ $? != 0 ]; then
 	echo "\nErro exit code: $?" >&2
 	exit 1
 else
 	echo -e "\nXMR-Stak-CPU Compilado!\n"
 fi
-rm -rf xmr-stak-cpu/
+cp bin/xmr-stak-cpu ~/xmr-stak
 sleep 1
 
 echo -e "Agora as configuracoes finais.\n"
