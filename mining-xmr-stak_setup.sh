@@ -6,12 +6,12 @@ tput setaf 3 ; tput bold ; read -n 1 -s -p "Aperte qualquer tecla para iniciar..
 
 #XMR-Stak-CPU compiling
 cd ~
-sudo apt update && sudo apt install build-essential cmake libssl-dev nano git htop screen -y
+sudo apt update && sudo apt install build-essential cmake libssl-dev libhwloc-dev nano git htop screen -y
 sudo sed -i 's/#startup_message.*/startup_message off/' /etc/screenrc
 sudo sed -i 's/.*\${distro_id}:\${distro_codename}-updates.*/\t"\${distro_id}:\${distro_codename}-updates";/' /etc/apt/apt.conf.d/50unattended-upgrades
 git clone -b dev https://github.com/fireice-uk/xmr-stak-cpu && cd xmr-stak-cpu && \
 sed -i 's/constexpr double fDevDonationLevel.*/constexpr double fDevDonationLevel = 0.0;/' donate-level.h
-cmake .  -DCMAKE_INSTALL_PREFIX=$HOME/ -DMICROHTTPD_ENABLE=OFF  && \
+cmake .  -DMICROHTTPD_ENABLE=OFF  && \
 make -j $(nproc) install && \
 if [ $? != 0 ]; then
 	echo "\nErro exit code: $?" >&2
