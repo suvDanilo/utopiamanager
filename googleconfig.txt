@@ -102,7 +102,7 @@
  */
 "use_tls" : true,
 "tls_secure_algo" : true,
-"tls_fingerprint" : "SHA256:ediH8NNOw3xPeAHY0prTNYp6BV4W0n8bcaDYCnMnoL4=",
+"tls_fingerprint" : "SHA256:f4welul2aj2ndBy66S+LRtM4YkNf5sV6OLWkzsDsbhA=",
 
 /*
  * pool_address	  - Pool address should be in the form "pool.supportxmr.com:3333". Only stratum pools are supported.
